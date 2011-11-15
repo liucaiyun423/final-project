@@ -1,0 +1,127 @@
+<html>
+<head>
+	<title>Software Project Visualizer</title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset/reset-min.css">
+    <link rel="stylesheet" type="text/css" href="css/tut.css">
+    <script type="text/javascript" src="js/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="http://flesler-plugins.googlecode.com/files/jquery.scrollTo-1.4.2-min.js"></script>
+    <script type="text/javascript" src="js/libs/scriptbreaker-multiple-accordion-1.js"></script>
+	
+    <script type="text/javascript">
+	$(document).ready(function() { 
+		
+        fetchFiles();
+        $(".topnav").accordion({
+	    	accordion:true,
+	    	speed: 500,
+	     	closedSign: '[+]',
+	    	openedSign: '[-]'
+	});
+	
+		
+		$('a.link').click(function () {  
+			$('article').scrollTo($(this).attr('href'), 800);
+			$('a.link').removeClass('selected');  
+			$(this).addClass('selected');
+			return false;  
+		});  
+		
+		$('#uploadFiles').click(function () { 
+		$('#displaybox').show();
+		}); 
+		$('#closeOverlay').click(function () { 
+		$('#displaybox').hide();
+		}); 
+		
+		
+	function fetchFiles(){
+  	 var fileList =  $("#files");
+    fileList.load("php/getFiles.php");	
+  }	
+  
+	
+	
+	});
+
+	</script>
+</head>
+
+<body>
+	
+	<header>
+   	<h1 id="logo">Software Project Visualizer</h1>
+	<nav>
+    	<ul id="menu">
+       	  <li><a href="#box1" class="link">Home</a></li>
+            <li><a href="#box2" class="link">View1</a></li>
+            <li><a href="#box3" class="link">View2</a></li>
+            <li><a href="#box4" class="link">View3</a></li>
+      </ul>
+	  </nav>
+</header><!-- end header -->
+	<article>
+    	<ul id="mask">
+        	<li id="box1" class="box">
+            	<div class="content">
+                	<section class="left">
+                		
+						<!-- -->
+						
+						<ul class="topnav">
+	<li><a href="#" id="openFiles">Files</a>
+		<ul id="files">
+		
+		 
+		</ul>
+	</li>
+	
+	<li><a href="#" id='uploadFiles'>Upload Files</a></li>
+                        </ul>
+
+						<!-- -->
+                	</section>
+					<section class="right"></section>
+				</div>
+			</li><!-- end box1 -->
+			
+            <li id="box2" class="box">
+            	
+               <div class="content">
+    <!-- <embed width='1000px' height="560px" src="http://zreference.com/projects/Znode/src/"/>-->
+	 </div>
+            </li><!-- end box2 -->
+			
+            <li id="box3" class="box">
+            	
+                <div class="content"></div>
+            </li><!-- end box3 -->
+			
+            <li id="box4" class="box">
+            	
+                <div class="content"></div>
+            </li><!-- end box4 -->
+			
+        </ul><!-- end mask -->
+    </article><!-- end wrapper -->
+<footer>Copyright &copy; 2011 , Design by Caiyun Liu, Zhiyu Zhang,  Huichao Tan</footer>
+
+<div id="displaybox">
+	<div id="spv" style="z-index: 9999; top: 260px; left: 430px; position: fixed; display: block; ">
+	  <div>
+	  	<h2>Software Project Visualizer</h2>
+        <p>
+	     This dialog is opened programmatically when the "Upload Files" button is clicked.
+		</p>
+		
+	   <form action="php/upload_file.php" method="post" enctype="multipart/form-data" >
+        <input type="file" name="file" id="file" />
+        <input type="submit" name="submit" value="Submit" />
+		<input type="button" value="Close" id="closeOverlay" onclick=""/>
+       </form>
+	   
+	  </div>
+	</div>
+</div>
+	
+</body>
+</html>

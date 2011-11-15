@@ -1,0 +1,167 @@
+/*** Horizontal Style Definitions ***/
+html			{ font-family:Georgia, Arial, sans-serif;
+                  background:#999 url(../images/bg.png);
+				 }
+/* @FONT-FACE */
+
+@font-face {
+	font-family: 'GoodDog';
+	src: local('?'), url('font/GoodDog.otf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*** Header ***/
+
+h1#logo				    { font: 50px/40px "GoodDog";
+	                      color: #383838;  position:absolute; top:10px; left:20px; 
+					      text-transform: uppercase;
+	                      text-shadow: 0px 3px 5px #777;}						
+
+nav #menu				{  float:right; position:absolute; top:20px; right:20px; z-index:10;}
+
+nav #menu a				{ 
+                        -webkit-border-radius:10px;
+						background:#FFF; color:#5e5e5e;  
+						text-decoration:none; padding:10px;
+						margin-right:10px;  
+						}
+					
+nav #menu a:hover		{ 
+                        background:#5e5e5e;
+						-webkit-transition: background-color 0.3s ease-in; 
+						color:#FFF;  
+						text-decoration:none; padding:10px;
+						margin-right:10px;  
+						}
+
+nav #menu a.selected	{ 
+                        background:#5e5e5e; color:#FFF;  
+						text-decoration:none; padding:10px;
+						margin-right:10px;  
+						}
+					
+nav #menu li			{ float:left;   }
+
+
+
+/*** Article Body Content ***/
+article	{ width:100%; height:100%; position:absolute; top:0; left:0; overflow:hidden; }
+
+article #mask		{ width:400%; height:100%; }
+
+article .box		{ width:25%; height:100%; float:left; }
+
+article .content	{ width:1000px; height:560px; top:10%; margin: 0 auto; position:relative; background:rgba(255,255,255, 0.3);
+				      -webkit-border-radius:25px;  }
+		
+section        {width:950px; height:520px; background:rgba(255, 255, 255, 0.7);
+			  -webkit-border-radius:20px; padding:15px; top:4px; position:relative;
+				margin: 10px 0px 10px 15px ;-webkit-box-shadow: 5px 5px 5px #a6a6a6;}
+	
+article  .left { overflow:auto; width:21%; height:90%; float:left;}	
+article  .right{ overflow:auto; width:68%; height:90%;  float:left;}											
+/** footer**/
+
+footer     {          font: 20px/40px "GoodDog";
+	                  color: #383838;  position:absolute; top:92%; left:32%; 
+					  text-transform: uppercase;
+	                  text-shadow: 0px 3px 5px #777; }
+					
+/** section  left**/
+.topnav {
+	width: 213px;
+	padding: 40px 28px 25px 0;
+	
+}
+
+ul.topnav {
+	padding: 0;
+	margin: 0;
+	font-size: 1em;
+	line-height: 0.5em;
+	list-style: none;
+}
+
+
+ul.topnav li a {
+	line-height: 10px;
+	font-size: 13px;
+	padding: 10px 5px;
+	color: #000;
+	display: block;
+	text-decoration: none;
+	font-weight: bolder;
+}
+
+ul.topnav li a:hover {
+	background-color:#675C7C;
+	color:white;
+}
+
+ul.topnav ul {
+	margin: 0;
+	padding: 0;
+	display: none;
+}
+
+ul.topnav ul li {
+	margin: 0;
+	padding: 0;
+	clear: both;
+}
+
+ul.topnav ul li a {
+	padding-left: 30px;
+	font-size: 13px;
+	font-weight: normal;
+	outline:0;
+}
+
+ul.topnav ul li a:hover {
+	background-color:#D3C99C;
+	color:#675C7C;
+}	
+
+ul.topnav span{
+	float:right;
+}	
+
+/* overlay */
+#displaybox {
+	z-index: 1000;
+	opacity: 0.7;
+	background-color:#000000;
+	position:absolute; top:0px; left:0px; width:100%; height:100%;
+	display:none;
+}
+#spv {  width:400px;
+		border:10px solid #666;
+        border:10px solid rgba(82, 82, 82, 0.698);
+		-webkit-border-radius:8px;
+     }
+
+#spv div {
+		padding:10px;
+		border:1px solid #3B5998;
+		background-color:#fff;
+		font-family:"lucida grande",tahoma,verdana,arial,sans-serif
+	}
+#spv div p{
+	margin: 0.8em;
+}	
+#spv div form , button{
+	margin:0.8em;
+	font-size:13px;}
+#spv h2 {
+		margin:-11px;
+		margin-bottom:0px;
+		color:#fff;
+		background-color:#6D84B4;
+		padding:5px 10px;
+		border:1px solid #3B5998;
+		font-size:20px;
+	}
+
+										
+										
