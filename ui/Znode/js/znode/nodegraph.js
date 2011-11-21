@@ -20,6 +20,47 @@ function NodeGraph(){
   
   var paper = new Raphael("canvas", "100", "100");
   
+  
+  
+  
+  
+  var type="composition";//the type of the link,by default is inheritance.
+  function arrowRotate(pointX, pointY, centerX,centerY,angle){
+			var degree = angle*Math.PI/180;
+			var newX = Math.cos(degree) * (pointX-centerX) - Math.sin(degree) * (pointY-centerY);
+			var newY = Math.sin(degree) * (pointX-centerX) + Math.cos(degree) * (pointY-centerY);
+			return {x:(newX+centerX),y:(newY+centerY)};	
+			}
+
+  function arrow(x1, y1, x2, y2) {
+					var angle = Math.atan2(x1-x2,y2-y1);
+						angle = (angle / (2 * Math.PI)) * 360;
+					//	
+					if(type=="composition"){
+						var points = [{x:x2-20, y:y2},{x:(x2-10),y:(y2 -7)},{x:(x2-10),y:(y2 + 7)},{x:x2 ,y:y2}];
+					}
+					else if(type=="inheritance"){
+						var points = [{x:x2-20, y:y2},{x:(x2-20),y:(y2 -8)},{x:(x2-20),y:(y2 + 8)},{x:x2 ,y:y2}];
+
+					}
+					//var points = [{x:x2-20, y:y2},{x:(x2-20),y:(y2 - 8)},{x:(x2-20),y:(y2 + 8)},{x:x2 ,y:y2}];
+					var newPoints = [];
+					var center = {x:x2,y:y2};
+					 console.log("points:");
+
+					 console.log(points);
+					for(var i=0;i<points.length;i++)
+					 newPoints.push(arrowRotate(points[i].x,points[i].y,center.x,center.y,90+angle));
+					 console.log("newPoints:");
+					 console.log(newPoints);
+					var arrowStr="M" + x1 + " " + y1 + " L" + newPoints[0].x + " " + newPoints[0].y+ " L" + newPoints[1].x + " " + newPoints[1].y+ " M" + newPoints[0].x + " " + newPoints[0].y+ " L" + newPoints[2].x + " " + newPoints[2].y+ " M" + newPoints[3].x + " " + newPoints[3].y + " L" + newPoints[1].x + " " + newPoints[1].y + " M" + newPoints[3].x + " " + newPoints[3].y + " L" + newPoints[2].x + " " + newPoints[2].y ;
+					//var arrowPath = this.path(arrowStr);
+				return arrowStr;
+				};
+  
+  
+  
+  
   function resizePaper(){
     paper.setSize(win.width(), win.height() - topHeight);
   }
@@ -414,7 +455,8 @@ function NodeGraph(){
          if (!c.removed){
            var nodeA = c.startNode.connectionPos(c.startConnection);
            var nodeB = c.endNode.connectionPos(c.endConnection);
-           c.attr("path","M " + nodeA.x + " " + nodeA.y + " L " + nodeB.x + " " + nodeB.y);
+           var updatePath=arrow(nodeA.x,nodeA.y,nodeB.x,nodeB.y);
+          	c.attr("path",updatePath);
             
          }
        }
@@ -439,10 +481,12 @@ function NodeGraph(){
       newNode = true;
       
       var id = setInterval(function(){
-        link.attr("path","M " + x + " " + y + " L " + mouseX + " " + mouseY);
-        
+       //link.attr("path","M " + x + " " + y + " L " + mouseX + " " + mouseY);
+        var updatePath=arrow(x,y,mouseX,mouseY);
+        //console.log("updatePath:"+updatePath);
+        link.attr("path",updatePath);
         pathEnd.x = mouseX;
-        pathEnd.y = mouseY;
+        pathEnd.y = mouseY;//set the pathEnd to the current mouse's position;
       }, 30);
       loops.push(id);
    }
