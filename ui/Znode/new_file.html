@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<title>Conforming XHTML 1.0 Transitional Template</title>
+
+<style type="text/css">
+
+	html, body { overflow: hidden; }
+
+	#topMost, #bottomMost {
+		position: absolute;
+		width: 6px;
+		height: 6px;
+		background: #FFF;
+		border: 1px solid #000;
+		z-index: 1000;
+	}
+	#topMost { top: 100px; left: 50px; }
+	#bottomMost { top: 300px; left: 200px; cursor: move; }
+	
+	h1 { font-family: Cambria, serif; }
+
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="js/libs/raphael.js"></script>
+
+
+</head>
+
+<body>
+
+<h1>Raphael.fn.arrow() Test</h1>
+
+<div id="topMost">&nbsp;</div>
+
+<div id="bottomMost">&nbsp;</div>
+
+</body>
+
+<script type="text/javascript">
+
+function arrowRotate(pointX, pointY, centerX,centerY,angle){
+			var degree = angle*Math.PI/180;
+			var newX = Math.cos(degree) * (pointX-centerX) - Math.sin(degree) * (pointY-centerY);
+			var newY = Math.sin(degree) * (pointX-centerX) + Math.cos(degree) * (pointY-centerY);
+			return {x:(newX+centerX),y:(newY+centerY)};	
+			}
+
+Raphael.fn.arrow = function (x1, y1, x2, y2,type) {
+					var angle = Math.atan2(x1-x2,y2-y1);
+						angle = (angle / (2 * Math.PI)) * 360;
+					if(type=="composition"){
+						var points = [{x:x2-20, y:y2},{x:(x2-10),y:(y2 -7)},{x:(x2-10),y:(y2 + 7)},{x:x2 ,y:y2}];
+					}
+					else if(type=="inheritance"){
+						var points = [{x:x2-20, y:y2},{x:(x2-20),y:(y2 -8)},{x:(x2-20),y:(y2 + 8)},{x:x2 ,y:y2}];
+
+					}
+					var newPoints = [];
+					var center = {x:x2,y:y2};
+					for(var i=0;i<points.length;i++)
+					 newPoints.push(arrowRotate(points[i].x,points[i].y,center.x,center.y,90+angle));
+					
+					var arrowStr="M" + x1 + " " + y1 + " L" + newPoints[0].x + " " + newPoints[0].y+ " L" + newPoints[1].x + " " + newPoints[1].y
+	      			+ " M" + newPoints[0].x + " " + newPoints[0].y+ " L" + newPoints[2].x + " " + newPoints[2].y
+					+ " M" + newPoints[3].x + " " + newPoints[3].y + " L" + newPoints[1].x + " " + newPoints[1].y 
+					+ " M" + newPoints[3].x + " " + newPoints[3].y + " L" + newPoints[2].x + " " + newPoints[2].y ;
+					/*
+				   (x1,y1) is starting point,point[3] is the ending point, which is passed in;
+					
+				
+					
+					var oldArrowStr="M" + x1 + " " + y1 + " L" + points[0].x + " " + points[0].y+ " L" + points[1].x + " "+ points[1].y
+					+ " M" + points[0].x + " " + points[0].y+ " L" + points[2].x + " " + points[2].y
+					+ " M"  + points[3].x + " " + points[3].y + " L" + points[1].x + " " + points[1].y 
+					+ " M" + points[3].x + " " + points[3].y + " L" + points[2].x + " " + points[2].y ;
+					this.path(oldArrowStr);
+					 */
+					var arrowPath = this.path(arrowStr);
+					//console.log(arrowPath.attr('fill'));
+					arrowPath.attr({'fill':'#ffffff'})
+					//console.log(arrowPath.attr('fill'));
+
+				   return arrowPath;
+				};
+
+	$(document).ready(function() {
+	
+		$("#bottomMost").draggable({
+		    addClasses:false,
+		    cursorAt:{left:5},
+			drag: function(event,ui) {				
+					paper.clear();
+					console.log("ui.position.left:"+ui.position.left);
+					console.log("ui.position.left:"+ ui.position.top);
+					console.log("ui.helper.width():"+ui.helper.width());
+					ui.helper.width(0);
+					ui.helper.height(0);
+					var middleX = ui.position.left ;//+ (ui.helper.width())/2;
+					var middleY = ui.position.top ;//+ (ui.helper.height())/2;
+					paper.arrow(54,104,middleX,middleY,"inheritance");
+			}
+			
+		});
+	
+		// Create initial Raphael canvas
+		var paper = new Raphael(0,0,2000,2000);
+		
+		paper.arrow(54,104,204,304,"inheritance");
+
+
+	});
+
+	
+</script>
+
+</html>

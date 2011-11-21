@@ -1,0 +1,196 @@
+/**rest css**/
+html{color:#000;background:#FFF;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}
+del,ins{text-decoration:none;}
+li{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:baseline;}
+sub{vertical-align:baseline;}
+legend{color:#000;}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
+input,button,textarea,select{*font-size:100%;}
+
+/*** html font***/
+html			{ font-family:Georgia, serif, sans-serif;}
+
+/*znode main*/
+#main{
+  width : 100%;
+  height : 40px;
+  background-color : #dcdcdc;
+  border-top : none;
+  border-left : none;
+  border-right : none;
+  border-bottom : 1px solid #999;
+}
+
+.btn{ 
+  padding: 17px 8px 13px 8px;
+  height : 10px;
+  margin: 0px 0px 0px 2px;
+  float : left;
+  cursor : pointer;
+  font-size : 12px;
+  background-color : #efefef;
+}
+
+#logo{
+  position : relative;
+  float : left;
+  font-size : 20px;
+  color : black;
+  padding-left : 5px;
+  margin : 10px;
+}
+
+#openWin{
+  position : absolute;
+  top : 60px;
+  left : 20px;
+  width : 220px;
+  height : 460px;
+  background-color : #dcdcdc;
+  z-index : 6000;
+  display : none;
+  -webkit-box-shadow:5px 6px 5px #888;
+}
+
+#files{
+  position : relative;
+  margin : 10px;
+  background-color : white;
+  width : 200px;
+  height : 400px;
+  overflow : auto;
+}
+
+#fileTitle{
+  font-style : italic; 
+  margin-left : 10px;
+  margin-top : 10px;
+}
+
+/* related to NodeGraph & li/ul */
+#files ul{
+  padding : 0;
+  margin : 0;
+  background-color : white;
+}
+
+#files li{
+
+  list-style : none;
+}
+
+#files li, a {
+  color:#000;
+  text-decoration:none;
+  margin: 0;
+  cursor : pointer;
+  background-color : white;
+  border-bottom : 1px solid #cccccc;
+  padding : 5px 10px 5px 10px;
+}
+
+#files a{  font-size : 12px;}
+
+
+
+/*** Header ***/
+					
+#menu				{  float:right; position:absolute; top:12px; right:40px; z-index:999;}
+
+#menu a				{ 
+                        -webkit-border-radius:10px;
+						background: #fff;
+	                    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed))
+						text-decoration:none; padding:6px;
+						margin-right:10px;  
+						}
+					
+#menu a:hover		{ 
+                        background:#525252;
+						-webkit-transition: background-color 0.3s ease-in; 
+						color:#FFF;
+						background: -webkit-gradient(linear, left top, left bottom, from(#888), to(#575757));   
+						text-decoration:none; padding:6px;
+						margin-right:10px;  
+						}
+
+#menu a.selected	{ 
+                        background:#525252; color:#FFF;
+						background: -webkit-gradient(linear, left top, left bottom, from(#888), to(#575757));   
+						text-decoration:none; padding:6px;
+						margin-right:10px;  
+						}
+					
+#menu li			{ float:left;   }
+
+
+
+/*** Article Body Content ***/
+article	{ width:100%; height:100%; position:absolute; top:0; left:0; overflow:hidden; }
+
+article #mask		{ width:300%; height:100%; }
+
+article .box		{ width:33.33%; height:100%; float:left; }
+
+#fileContent   { overflow:auto; position:absolute;width:100%;height:100%;}
+
+#fileContent .inner {float:left;margin:16px;overflow:hidden;
+                     width:250px; height:350px; font-size:11px;
+					 -webkit-box-shadow: 3px 8px 10px rgba(0, 0, 0, 0.5);
+		             background-color:#FAF046;}
+					 					 
+#fileContent .inner img {background-image: url(../images/db.png);position:absolute;display:none;}
+
+#fileContent .inner:hover img {display:block;left: -4px;top: -3px;}
+
+									
+
+/* overlay */
+#displaybox {
+	z-index: 1000;
+	opacity: 0.9;
+	background-color:#000000;
+	position:absolute; top:0px; left:0px; width:100%; height:100%;
+	display:none;
+    }
+#spv { 
+	width:400px;
+    border:10px solid #666;
+    border:10px solid rgba(82, 82, 82, 0.698);
+    -webkit-border-radius:8px;
+    }
+
+#spv div {
+	padding:10px;
+	border:1px solid #3B5998;
+	background-color:#fff;
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif
+	}
+#spv div p{
+	margin: 0.8em;
+    }	
+#spv div form , button{
+	margin:0.8em;
+	font-size:13px;
+	}
+#spv h2 {
+	margin:-11px;
+	margin-bottom:0px;
+	color:#fff;
+	background-color:#6D84B4;
+	padding:5px 10px;
+	border:1px solid #3B5998;
+	font-size:20px;
+	}
+
+										
+										

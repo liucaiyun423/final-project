@@ -11,15 +11,15 @@
 	$(document).ready(function() {
 
 	    $('a.link').click(function () {  
-		$('article').scrollTo($(this).attr('href'), 400);
-		$('#box2').append('<embed width="100%" height="100%" src="Znode/index.html"/>');
+		$('article').scrollTo($(this).attr('href'), 300);
+		$('#box2').append('<embed width="100%" height="100%" src="../Znode/index.html"/>');
 	    $('a.link').removeClass('selected');  
 		$(this).addClass('selected');
 		return false;
 	    });  
 		
 		$('#open').click(function () { 
-		  fetchFiles();
+		 fetchFiles();
 		$('#openWin').fadeIn();
 		});
 		$('#fileContent, #upload').click(function () { 
@@ -36,18 +36,19 @@
 		});  
 		
         $("#files li").live("click", function(event){
-		event.preventDefault();
-		var fileName=$(this).children().attr('href');
-		$.get('php/getContent.php?fname='+fileName, function(data) {
-		$('#fileContent').append('<div class=inner/>');
-	    var n = $(".inner").last();
-	    n.append('<img src="images/db.png"/>');
-	    n.append('<p style="background-color:#db0;color:#fff;text-align:center;border-bottom: 1px solid #a80;">'+fileName+"</p>");
-		n.append('<div style="padding:0.8em;" >'+data+'</div>');
-		$(".inner").first().css({"left":"240"});
-		n.resizable();
-		n.draggable();
-		});
+		    event.preventDefault();
+			var fileName=$(this).children().attr('href');
+			$.get('php/getContent.php?fname='+fileName, function(data) {
+		    $('#fileContent').append('<div class=inner/>');
+			var n = $(".inner").last();
+			n.append('<img src="images/db.png"/>');
+			n.append('<p style="background-color:#db0;color:#fff;text-align:center;border-bottom: 1px solid #a80;">'+fileName+"</p>");
+			n.append('<div style="padding:0.8em;" >'+data+'</div>');
+			$(".inner").first().css({"left":"240"});
+		    n.resizable();
+			n.draggable();
+			});
+			
 		}); 
 		
 		$('#submit').live("click", function(event){
@@ -98,7 +99,7 @@
 	<header>
    	<h1 id="logo"></h1>
       <ul id="menu">
-       	  <li><a href="#box1" class="link">Souce Code</a></li>
+       	  <li><a href="#box1" class="link">Home</a></li>
           <li><a href="#box2" class="link">View1</a></li>
           <li><a href="#box3" class="link">View2</a></li>
       </ul>
