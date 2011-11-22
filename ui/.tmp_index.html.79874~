@@ -6,79 +6,62 @@
     <script type="text/javascript" src="js/libs/jquery.min.js"></script>
     <script type="text/javascript" src="js/libs/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="js/libs/ajaxfileupload.js"></script>
-	<script type="text/javascript" src="js/libs/jquery.highlight.js"></script>
 	<script type="text/javascript" src="js/ui/jquery-ui-1.8.16.custom.min.js"></script>
 	<script type="text/javascript" src="js/ui/eventBinding.js"></script>
 </head>
 <body>
 	
-	<body>
-	
 	<header>
    	<h1 id="logo"></h1>
       <ul id="menu">
-       	  <li><a href="#box1" class="link">Home</a></li>
-          <li><a href="#box2" class="link">View</a></li>
+       	  <li><a href="#box1" class="link">Souce Code</a></li>
+          <li><a href="#box2" class="link">View1</a></li>
+          <li><a href="#box3" class="link">View2</a></li>
       </ul>
-
 </header><!-- end header -->
 <article>
 <ul id="mask">
  <li id="box1" class="box">
- 	
 		<!--left open window, default hide-->
-    <div id="openFilesWin">
+    <div id="openWin">
       <div id="fileTitle">Files:</div>
       <ul id="files"></ul>
     </div>
-	
-	<div id="openGWin">
-      <div id="gTitle">G_Variables:</div>
-      <ul id="gVariables"></ul>
-	  <form id="gForm">
-         <input type="text"  placeholder="add G_Variables.." id="gField" size="15"/>
-		 <input type="button" id="gButton" value="Go" />
-        </form>
-    </div>
 		
 		<div id="main">
-      <div id="logo" >Home</div>
-      <div id="openFiles" class="btn">Files</div>
-	  <div id="openGVariables" class="btn">G_Variables</div>
+      <div id="logo" >SouceCode</div>
+      <div id="open" class="btn">Open</div>
 	  <div id="upload" class="btn">Upload</div>
-	<!--  <div id="search" class="btn">Search</div>-->
-	  <div id="saveForm">
-        <form id="nameForm">
-         <input type="text"  placeholder="Search in files (Enter)" id="searchElement" size="25"/>
-        </form>
-      </div>
 	  </div>
 	  
 	  	
-	  <div id="filePane"></div>
+	  <div id="fileContent"></div>
   </li><!-- end box1 -->
 			
             <li id="box2" class="box">
             <!--  <div class="content"></div>-->
             </li><!-- end box2 -->
 			
+            <li id="box3" class="box">
+          <!--  <div class="content"></div>-->
+            </li><!-- end box3 -->
 			
 </ul><!-- end mask -->
 </article><!-- end article wrapper -->
 
-<!-- upload overlay Form-->
 <div id="displaybox">
-	<div id="overlayBox" style="z-index: 99999; top: 260px; left: 430px; position: fixed; display: block; ">
+	<div id="spv" style="z-index: 99999; top: 260px; left: 430px; position: fixed; display: block; ">
 	  <div>
 	  	<h2>Software Project Visualizer</h2>
         <p>
 	     This dialog is opened programmatically when the "Upload Files" button is clicked.
 		</p>
-		<form id="overlayForm" action="" method="post" enctype="multipart/form-data" >
+		<form name="form" action="" method="post" enctype="multipart/form-data" >
 		<input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input"/>
         <input type="submit" value="Submit" id="submit"/>
 		<input type="button" value="Close" id="closeOverlay" />
        </form>
+	   
 	  </div>
 	</div>
 </div>
