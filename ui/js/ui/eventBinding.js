@@ -41,7 +41,15 @@ $(document).ready(function() {
 			highLight();
 		});//prevent default submit event to refresh the whole page;
 		
+		$('#gForm').submit(function(event){
+			event.preventDefault();
+			$.post("../../php/addGVariable.php",function(){
+				var newG=$("#gField").val();
+				$('#gVariables').append("<li>"+newG+"</li>");
+			});		
+		});
 		
+		$.ajaxSetup({cache:false});
 		 
 		$('#filePane .inner img').live("click", function(event){ 
 		$(this).parent().remove();
