@@ -33,7 +33,7 @@ body, html{
   font-size : 12px;
   background-color : #efefef;
 }
-
+div.arrowButton {padding-top:21px;height:6px;}
 #logo{
   position : relative;
   float : left;

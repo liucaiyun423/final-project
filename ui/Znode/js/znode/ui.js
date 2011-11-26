@@ -24,6 +24,18 @@ $(function(){
   }).mouseleave(function(){
     $(this).animate({"backgroundColor" : "#efefef"});
   });
+  
+  $("#inheritance").click(function(){
+  	//graph.type="inheritance";
+  	graph.changeType("inheritance");
+  	//alert("changed to:"+graph.type);
+  });
+  $("#composition").click(function(){
+  	//graph.type="composition";
+  	graph.changeType("composition");
+  	//alert("changed to:"+graph.type);
+  });
+  
   $("#clear").click(function(){
     graph.clearAll();
   });

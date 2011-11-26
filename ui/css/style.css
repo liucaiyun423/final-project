@@ -59,30 +59,37 @@ background: white; }
 }
 
 #openFilesWin , #openGWin{
+  font-size:12px;
   position : absolute;
   top : 60px;
   left : 20px;
-  width : 220px;
+  width : 230px;
   height : 460px;
   background-color : #dcdcdc;
   z-index : 6000;
   display : none;
   -webkit-box-shadow:5px 6px 5px #888;
+    
 }
 
-#files, #gVariables{
+
+#fileList, #gVariables{
   position : relative;
   margin : 10px;
+  left:5px;
   background-color : white;
-  width : 200px;
+  width : 190px;
   height : 360px;
   overflow : auto;
+  
 }
 
 #fileTitle, #gTitle{
+  font-size:16px;
   font-style : italic; 
   margin-left : 10px;
   margin-top : 10px;
+  margin-bottom: 10px;
 }
 
 form #nameForm{
@@ -104,7 +111,24 @@ form #nameForm{
   padding : 10px 0px 0px 18px;
 
 }
+
+
+#gVariables li {
+  color:#000;
+  text-decoration:none;
+  cursor : pointer;
+  background-color : white;
+  border-bottom : 1px solid #dcdcdc;
+  padding : 4px 10px 4px 15px;
+  
+}
+#gVariables #x {display:inline;float:right;}
+#gVariables #x:hover{color:white;}
+#gVariables li:hover{background-color:#ccc}
+
 /* related to NodeGraph & li/ul */
+
+/*
 #files ul{
   padding : 0;
   margin : 0;
@@ -127,6 +151,7 @@ form #nameForm{
 }
 
 #files a{  font-size : 12px;}
+*/
 
 /** G_variable submit form**/
 #gForm {
@@ -168,12 +193,15 @@ form #nameForm{
 					
 #menu				{  float:right; position:absolute; top:12px; right:40px; z-index:999;}
 
+
 #menu a				{ 
                         -webkit-border-radius:10px;
 						background: #fff;
 	                    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed))
 						text-decoration:none; padding:6px;
-						margin-right:10px;  
+						margin-right:10px; 
+						color:#000;
+                        text-decoration:none; 
 						}
 					
 #menu a:hover		{ 
@@ -192,7 +220,7 @@ form #nameForm{
 						margin-right:10px;  
 						}
 					
-#menu li			{ float:left;   }
+ul#menu li           { float:left;}
 
 
 
@@ -210,7 +238,7 @@ article .box		{ width:50%; height:100%; float:left; }
 					 -webkit-box-shadow: 3px 8px 10px rgba(0, 0, 0, 0.5);
 		             background-color:#FAF046;}
 					 					 
-#filePane .inner img {background-image: url(../images/db.png);position:absolute;display:none;}
+#filePane .inner img {background-image: url(../images/deleteButton.png);position:absolute;display:none;}
 
 #filePane .inner:hover img {display:block;left: -4px;top: -3px;}
 

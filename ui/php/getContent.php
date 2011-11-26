@@ -7,8 +7,9 @@ $fileName = $_GET['fname'];
 
 //echo $fileName;
 
-$fh = fopen("../files/$fileName", "r");
+//$fh = fopen("../files/$fileName", "r");
 
+$fh = fopen("../$fileName", "r");
 while(true)
 {
 	$line = fgets($fh);

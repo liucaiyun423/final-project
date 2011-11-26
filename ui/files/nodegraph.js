@@ -20,49 +20,6 @@ function NodeGraph(){
   
   var paper = new Raphael("canvas", "100", "100");
   
-  var type="composition";//the type of the link,by default is inheritance.
-  this.changeType=function changeType(linkType){
-  	type=linkType;
-  	console.log("linkType passed in: "+linkType+" "+"after change,type is :"+type);
-  }
-
-  function arrowRotate(pointX, pointY, centerX,centerY,angle){
-			var degree = angle*Math.PI/180;
-			var newX = Math.cos(degree) * (pointX-centerX) - Math.sin(degree) * (pointY-centerY);
-			var newY = Math.sin(degree) * (pointX-centerX) + Math.cos(degree) * (pointY-centerY);
-			return {x:(newX+centerX),y:(newY+centerY)};	
-			}
-
-  function arrow(x1, y1, x2, y2,linkType) {
-					var angle = Math.atan2(x1-x2,y2-y1);
-						angle = (angle / (2 * Math.PI)) * 360;
-					//	
-					if(linkType=="composition"){
-						//alert("calculating composition path");      console.log("type in addlink"+type);
-						var points = [{x:x2-20, y:y2},{x:(x2-10),y:(y2 -7)},{x:(x2-10),y:(y2 + 7)},{x:x2 ,y:y2}];
-					}
-					else if(linkType=="inheritance"){
-						//alert("calculating inheritance path");      console.log("type in addlink"+type);
-						var points = [{x:x2-20, y:y2},{x:(x2-20),y:(y2 -8)},{x:(x2-20),y:(y2 + 8)},{x:x2 ,y:y2}];
-
-					}
-					//var points = [{x:x2-20, y:y2},{x:(x2-20),y:(y2 - 8)},{x:(x2-20),y:(y2 + 8)},{x:x2 ,y:y2}];
-					var newPoints = [];
-					var center = {x:x2,y:y2};
-					 //console.log("points:");
-					 //console.log(points);
-					for(var i=0;i<points.length;i++)
-					 newPoints.push(arrowRotate(points[i].x,points[i].y,center.x,center.y,90+angle));
-					 //console.log("newPoints:");
-					 //console.log(newPoints);
-					var arrowStr="M" + x1 + " " + y1 + " L" + newPoints[0].x + " " + newPoints[0].y+ " L" + newPoints[1].x + " " + newPoints[1].y+ " M" + newPoints[0].x + " " + newPoints[0].y+ " L" + newPoints[2].x + " " + newPoints[2].y+ " M" + newPoints[3].x + " " + newPoints[3].y + " L" + newPoints[1].x + " " + newPoints[1].y + " M" + newPoints[3].x + " " + newPoints[3].y + " L" + newPoints[2].x + " " + newPoints[2].y ;
-					//var arrowPath = this.path(arrowStr);
-				return arrowStr;
-				};
-  
-  
-  
-  
   function resizePaper(){
     paper.setSize(win.width(), win.height() - topHeight);
   }
@@ -114,21 +71,22 @@ function NodeGraph(){
     
  
     node = new Node(x, y, currentNode.width(), currentNode.height());
-    saveConnection(node, dir,type);
+    saveConnection(node, dir);
     currentNode = node;
   }
   
-  function createConnection(a, conA, b, conB,connType){
+  function createConnection(a, conA, b, conB){
       var link = paper.path("M 0 0 L 1 1");
       link.attr({"stroke-width":2});
       link.parent = a[conA];
+      
       a.addConnection(link);
       currentConnection = link;
       currentNode = a;
-      saveConnection(b, conB,connType);
+      saveConnection(b, conB);
   }
   
-  function saveConnection(node, dir,connType){
+  function saveConnection(node, dir){
     if (!currentConnection) return;
     if (!currentConnection.parent) return;
     
@@ -136,8 +94,6 @@ function NodeGraph(){
     currentConnection.endNode = node;
     currentConnection.startConnection = currentConnection.parent;
     currentConnection.endConnection = node[dir.toLowerCase()];
-    //save the type of association;
-    currentConnection.connType=connType;
     
     currentConnection.id = connectionId;
     connections[connectionId] = currentConnection;
@@ -187,19 +143,19 @@ function NodeGraph(){
         if (n != currentNode){
           var nLoc = n.content.position();
           if (hitTest(toGlobal(nLoc, n.left), hitConnect)){
-            saveConnection(n, "left",type);
+            saveConnection(n, "left");
             newNode = false;
             break;
           }else if (hitTest(toGlobal(nLoc, n.top), hitConnect)){
-            saveConnection(n, "top",type);
+            saveConnection(n, "top");
             newNode = false;
             break;
           }else if (hitTest(toGlobal(nLoc, n.right), hitConnect)){
-            saveConnection(n, "right",type);
+            saveConnection(n, "right");
             newNode = false;
             break;
           }else if (hitTest(toGlobal(nLoc, n.bottom), hitConnect)){
-            saveConnection(n, "bottom",type);
+            saveConnection(n, "bottom");
             newNode = false;
             break;
           }
@@ -350,38 +306,15 @@ function NodeGraph(){
       });
     }
    
-   //this is customed title textarea
-	n.append("<textarea class='title' spellcheck='false' />");
-    var title = $(".node .title").last();
-    title.css("position","absolute");
-    title.css({"width" : nodeWidth - 5,
-		     "height" : 10,
-             "resize" : "none", "overflow" : "hidden",
-             "font-size" : "12px" , "font-family" : "sans-serif",
-			 "text-align":"center",
-             "border" : "none","z-index":4});
-          
-    this.title = title; 
-   
-   
-   
-   
-   
-   
     n.append("<textarea class='txt' spellcheck='false' />");
     var txt = $(".node .txt").last();
     txt.css("position","absolute");
    
     txt.css({"width" : nodeWidth - 5,
-             "height" : nodeHeight - bar.height() - 20,
-			 "left" : 0, "top" : 25,
+             "height" : nodeHeight - bar.height() - 5,
              "resize" : "none", "overflow" : "hidden",
              "font-size" : "12px" , "font-family" : "sans-serif",
-			 "border-bottom" : "none",
-			 "border-left" : "none",
-			 "border-right" : "none",
-             "border-top" : "1px solid gray",
-			 "z-index":4});
+             "border" : "none","z-index":4});
           
     this.txt = txt;
     
@@ -457,9 +390,8 @@ function NodeGraph(){
          var c = curr.connections[i];
          if (!c.removed){
            var nodeA = c.startNode.connectionPos(c.startConnection);
-           var nodeB = c.endNode.connectionPos(c.endConnection);//alert("update connections");
-           var updatePath=arrow(nodeA.x,nodeA.y,nodeB.x,nodeB.y,c.connType);
-          	c.attr("path",updatePath);
+           var nodeB = c.endNode.connectionPos(c.endConnection);
+           c.attr("path","M " + nodeA.x + " " + nodeA.y + " L " + nodeB.x + " " + nodeB.y);
             
          }
        }
@@ -482,14 +414,12 @@ function NodeGraph(){
       var x = loc.left + nLoc.left + 5;
       var y = loc.top + nLoc.top - topHeight + 5;
       newNode = true;
-      console.log("type in addlink"+type);
+      
       var id = setInterval(function(){
-       //link.attr("path","M " + x + " " + y + " L " + mouseX + " " + mouseY);
-        var updatePath=arrow(x,y,mouseX,mouseY,type);
-        //console.log("updatePath:"+updatePath);
-        link.attr("path",updatePath);
+        link.attr("path","M " + x + " " + y + " L " + mouseX + " " + mouseY);
+        
         pathEnd.x = mouseX;
-        pathEnd.y = mouseY;//set the pathEnd to the current mouse's position;
+        pathEnd.y = mouseY;
       }, 30);
       loops.push(id);
    }
@@ -519,9 +449,8 @@ function NodeGraph(){
         var y = loc.top;
         n.css({"width" : x + resizer.width() + 1,
                "height" : y + resizer.height() + 1});
-        	
-	    title.css({"width" : n.width() - 5, "height" : 10,});//this title custom resizer function	
-        txt.css({"width" : n.width() - 5, "height" : n.height() - bar.height() - 20});//this line needs to be changed
+        
+        txt.css({"width" : n.width() - 5, "height" : n.height() - bar.height() - 5});
         
         positionLeft();
         positionRight();
@@ -587,8 +516,8 @@ function NodeGraph(){
     return new Node(x, y, w, h, noDelete);
   }
   
-  var defaultWidth = 107; //107 and 55 should be the better option compare to 100 and 50
-  var defaultHeight = 55;
+  var defaultWidth = 100;
+  var defaultHeight = 50;
   
   this.addNodeAtMouse = function(){
     //alert("Zevan");
@@ -615,16 +544,12 @@ function NodeGraph(){
       var n = data.nodes[i];
       var ex = (i == "0") ? true : false;
       var temp = new Node(n.x, n.y, n.width, n.height, ex, n.id);
-	  
-	  var addreturn = n.title.replace(/\\n/g,'\n'); //customized to read title from JSON
-      temp.title.val(addreturn);//customized to read title from JSON
-	  
       var addreturns = n.txt.replace(/\\n/g,'\n');
       temp.txt.val(addreturns);
     }
     for (i in data.connections){
       var c = data.connections[i];
-      createConnection(nodes[c.nodeA], c.conA, nodes[c.nodeB], c.conB,c.connType);
+      createConnection(nodes[c.nodeA], c.conA, nodes[c.nodeB], c.conB);
     }
   }
   
@@ -637,7 +562,6 @@ function NodeGraph(){
       json += '"y" : ' + n.y() + ', ';
       json += '"width" : ' + n.width() + ', ';
       json += '"height" : ' + n.height() + ', ';
-	  json += '"title" : "' + n.title.val() + '", ';//customized to add title to JSON
       json += '"txt" : "' + addSlashes(n.txt.val()) + '"},';
     }
     json = json.substr(0, json.length - 1);
@@ -650,9 +574,7 @@ function NodeGraph(){
       json += '{"nodeA" : ' + c.startNode.id + ', ';
       json += '"nodeB" : ' + c.endNode.id + ', ';
       json += '"conA" : "' + c.startConnection.attr("class") + '", ';
-      json += '"conB" : "' + c.endConnection.attr("class") + '",';
-      json += '"connType" : "' + c.connType  + '"},';
-      ;
+      json += '"conB" : "' + c.endConnection.attr("class") + '"},';
       hasConnections = true;
       }
     }
