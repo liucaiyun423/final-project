@@ -41,6 +41,10 @@ function GameObjectManager()
         @type CanvasRenderingContext2D
     */
     this.backBufferContext2D = null;
+    /** True if the canvas element is supported, false otherwise
+        @type Boolean
+    */
+    this.canvasSupported = false;
 
     /**
         Initialises this object
@@ -50,15 +54,28 @@ function GameObjectManager()
     {
         // set the global pointer to reference this object
         g_GameObjectManager = this;
-        
+
+        // watch for keyboard events
+        document.onkeydown = function(event){g_GameObjectManager.keyDown(event);}
+        document.onkeyup = function(event){g_GameObjectManager.keyUp(event);}
+
         // get references to the canvas elements and their 2D contexts
         this.canvas = document.getElementById('canvas');
-        this.context2D = this.canvas.getContext('2d');
-        this.backBuffer = document.createElement('canvas');
-        this.backBuffer.width = this.canvas.width;
-        this.backBuffer.height = this.canvas.height;
-        this.backBufferContext2D = this.backBuffer.getContext('2d');
-        
+
+        // if the this.canvas.getContext function does not exist it is a safe bet that
+        // the current browser does not support the canvas element.
+        // in this case we don't go any further, which will save some debuggers (like
+        // the IE8 debugger) from throwing up a lot of errors.
+        if (this.canvas.getContext)
+        {
+            this.canvasSupported = true;
+            this.context2D = this.canvas.getContext('2d');
+            this.backBuffer = document.createElement('canvas');
+            this.backBuffer.width = this.canvas.width;
+            this.backBuffer.height = this.canvas.height;
+            this.backBufferContext2D = this.backBuffer.getContext('2d');
+        }
+
         // create a new ApplicationManager
         this.applicationManager = new ApplicationManager().startupApplicationManager();
         
@@ -79,29 +96,32 @@ function GameObjectManager()
         this.lastFrame = thisFrame;
         
         // clear the drawing contexts
-        this.backBufferContext2D.clearRect(0, 0, this.backBuffer.width, this.backBuffer.height);
-        this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        // first update all the game objects
-        for (x in this.gameObjects)
+        if (this.canvasSupported)
         {
-            if (this.gameObjects[x].update)
+            this.backBufferContext2D.clearRect(0, 0, this.backBuffer.width, this.backBuffer.height);
+            this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+            // first update all the game objects
+            for (x in this.gameObjects)
             {
-                this.gameObjects[x].update(dt, this.backBufferContext2D, this.xScroll, this.yScroll);
+                if (this.gameObjects[x].update)
+                {
+                    this.gameObjects[x].update(dt, this.backBufferContext2D, this.xScroll, this.yScroll);
+                }
             }
-        }
 
-        // then draw the game objects
-        for (x in this.gameObjects)
-        {
-            if (this.gameObjects[x].draw)
+            // then draw the game objects
+            for (x in this.gameObjects)
             {
-                this.gameObjects[x].draw(dt, this.backBufferContext2D, this.xScroll, this.yScroll);
+                if (this.gameObjects[x].draw)
+                {
+                    this.gameObjects[x].draw(dt, this.backBufferContext2D, this.xScroll, this.yScroll);
+                }
             }
-        }
-        
-        // copy the back buffer to the displayed canvas
-        this.context2D.drawImage(this.backBuffer, 0, 0);
+
+            // copy the back buffer to the displayed canvas
+            this.context2D.drawImage(this.backBuffer, 0, 0);
+        }        
     };
     
     /**
@@ -121,5 +141,27 @@ function GameObjectManager()
     this.removeGameObject = function(gameObject)
     {
         this.gameObjects.removeObject(gameObject);
+    }
+
+    this.keyDown = function(event)
+    {
+        for (x in this.gameObjects)
+        {
+            if (this.gameObjects[x].keyDown)
+            {
+                this.gameObjects[x].keyDown(event);
+            }
+        }
+    }
+
+    this.keyUp = function(event)
+    {
+        for (x in this.gameObjects)
+        {
+            if (this.gameObjects[x].keyUp)
+            {
+                this.gameObjects[x].keyUp(event);
+            }
+        }
     }
 }

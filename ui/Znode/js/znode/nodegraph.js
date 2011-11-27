@@ -358,7 +358,7 @@ function NodeGraph(){
 		     "height" : 10,
              "resize" : "none", "overflow" : "hidden",
              "font-size" : "12px" , "font-family" : "sans-serif",
-			 "text-align":"center",
+			 "text-align":"center","line-height":"80%",
              "border" : "none","z-index":4});
           
     this.title = title; 
@@ -604,7 +604,7 @@ function NodeGraph(){
     var temp = new Node(win.width() / 2 - defaultWidth / 2, 
                         win.height() / 2 - defaultHeight / 2,
                         defaultWidth, defaultHeight, true);
-    temp.txt[0].focus();
+    temp.title[0].focus();
     currentNode = temp;
   }
   defaultNode();

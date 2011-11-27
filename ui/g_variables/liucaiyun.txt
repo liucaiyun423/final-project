@@ -1,1 +1,1 @@
-test,g_image,function,
+g_image,g_GameObjectManager,g_run_right,g_run_left,g_idle_left,g_idle_right,

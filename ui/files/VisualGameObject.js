@@ -14,6 +14,9 @@ function VisualGameObject()
     /**
         Draws this element to the back buffer
         @param dt Time in seconds since the last frame
+		@param context The context to draw to
+		@param xScroll The global scrolling value of the x axis  
+		@param yScroll The global scrolling value of the y axis  
     */
     this.draw = function(/**Number*/ dt, /**CanvasRenderingContext2D*/ context, /**Number*/ xScroll, /**Number*/ yScroll)
     {
@@ -23,6 +26,9 @@ function VisualGameObject()
     /**
         Initialises this object
         @param image The image to be displayed
+		@param x The position on the X axis
+        @param y The position on the Y axis
+		@param z The depth
     */
     this.startupVisualGameObject = function(/**Image*/ image, /**Number*/ x, /**Number*/ y, /**Number*/ z)
     {

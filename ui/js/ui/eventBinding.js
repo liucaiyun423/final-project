@@ -47,10 +47,13 @@ $(document).ready(function() {
 		$('#gForm').submit(function(event){
 			event.preventDefault();
 			var newG=$("#gField").val();
-			$.get("php/addGVariable.php?gField="+newG,function(){
-				$('#gVariables').append("<li>"+newG+"<div id='x'>x</div>"+"</li>");
-			});
-	
+			if (newG == "" || $("#gField").length == 0) {
+				$('.data').removeHighlight();
+			}
+			else {
+				$.get("php/addGVariable.php?gField=" + newG, function(){
+					$('#gVariables').append("<li>" + newG + "<div id='x'>x</div>" + "</li>");
+				});}
 		});
 		
 		$('#filePane, #upload').mousedown(function () { 
@@ -77,9 +80,10 @@ $(document).ready(function() {
 		});  
 		 
 		$('#gVariables li').live("click", function(event){ 
-		
-		 highLight($(this).text().substring(0,($(this).text().length-1)));
-		
+		if (event.target.id != 'x') {
+			highLight($(this).text().substring(0, ($(this).text().length - 1)));
+			
+		}
 		});  
 		
 		$('#gVariables li #x').live("click", function(event){ 
