@@ -3,8 +3,8 @@ $(document).ready(function() {
         var zindex = 1;
 		$('a.link').first().addClass('selected');
 	    $('a.link').click(function () { 
-		$('article').scrollTo($(this).attr('href'), 500);
-		$('#box2').append('<embed width="100%" height="100%" src="Znode/index.html"/>');
+		$('#wrapper').scrollTo($(this).attr('href'), 500);
+	//	$('#box2').append('<embed width="100%" height="100%" src="Znode/index.html"/>');
 	    $('a.link').removeClass('selected');  
 		$(this).addClass('selected');
 		return false;

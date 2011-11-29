@@ -39,9 +39,7 @@ $(function(){
   $("#clear").click(function(){
     graph.clearAll();
   });
-  $("#help").click(function(){
-    window.open("http://www.zreference.com/znode", "_blank");
-  });
+ 
   
   $("#save").click(saveFile);
   
@@ -62,6 +60,7 @@ $(function(){
   });
   
   $("#open").click(function(){
+  	//alert('here');
     var fileList =  $("#files");
     fileList.html("<div>loading...<\/div>");
     openWin.fadeIn();

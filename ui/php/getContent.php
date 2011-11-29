@@ -4,7 +4,7 @@
 
 
 $fileName = $_GET['fname'];
-
+$l = 1;
 //echo $fileName;
 
 //$fh = fopen("../files/$fileName", "r");
@@ -17,6 +17,7 @@ while(true)
 //	echo $line; echo'<br/>';
 //	echo strip_tags($line, '<script>');echo'<br/>';
  //  echo strip_tags($line);
+ echo $l++; echo '&nbsp';echo '&nbsp';echo '&nbsp';echo '&nbsp';
  echo htmlentities($line); echo'<br/>';
 }
 

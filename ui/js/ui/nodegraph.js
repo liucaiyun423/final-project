@@ -17,9 +17,9 @@ function NodeGraph(){
   var key = {};
   var SHIFT = 16;
   var topHeight = $("#controls").height();
-  
+ 
   var paper = new Raphael("canvas", "100", "100");
-  
+
   var type="composition";//the type of the link,by default is inheritance.
   this.changeType=function changeType(linkType){
   	type=linkType;
@@ -62,12 +62,15 @@ function NodeGraph(){
   
   
   
-  
+ // alert(canvas.position().left);
+//  alert(canvas.position().top);
   function resizePaper(){
     paper.setSize(win.width(), win.height() - topHeight);
   }
   win.resize(resizePaper);
   resizePaper();
+  
+  
   
   canvas.append("<ul id='menu'><li>Left<\/li><li>Right<\/li><li>Top<\/li><li>Bottom<\/li><\/ul>");
   var menu = $("#menu");
@@ -76,7 +79,7 @@ function NodeGraph(){
   
   canvas.append("<div id='hit' />");
   hitConnect = $("#hit");
-  hitConnect.css({"position" : "absolute", "left" : 100, "top" : 0, "z-index" : 4000, "border" : "none", 
+  hitConnect.css({"position" : "absolute", "left" : 100, "top" : 0, "z-index" : 4000, "border" : "solid", 
                   "width" : 10, "height": 10, "cursor":"pointer", "font-size": "1px"});
                   
   $("#menu li").hover(function(){
@@ -174,13 +177,21 @@ function NodeGraph(){
   });
   
   $(document).mousemove(function(e){
+  	console.log("topHeight:"+topHeight);
+  	console.log("pageX"+e.pageX);
+  	console.log("pageY"+e.pageY);
+
     mouseX = e.pageX;
     mouseY = e.pageY - topHeight;
+   // mouseY = e.pageY;   
+   
   }).mouseup(function(e){
     overlay.hide();
     var creatingNewNode = newNode;
     
-    hitConnect.css({"left":mouseX - 5, "top":mouseY + topHeight - 5});
+    //hitConnect.css({"left":mouseX - 5, "top":mouseY + topHeight - 5});
+    hitConnect.css({"left":mouseX - 5, "top":mouseY - 5});
+            
     for (var i in nodes){
       if (nodes[i]){
         var n = nodes[i];
@@ -206,7 +217,7 @@ function NodeGraph(){
         }
       }
     }
-    hitConnect.css("left", "-100px");
+    hitConnect.css("left", "100px");
     
     if (newNode){
       if (key[SHIFT]){
@@ -254,11 +265,12 @@ function NodeGraph(){
   
   function showOverlay(){
     overlay.show();
-    overlay.css({"width" : win.width(), "height" : win.height()}); //, "opacity": 0.1});
+    overlay.css({"width" : win.width(), "height" : win.height(),}); //, "opacity": 0.1});
   }
   
   function startDrag(element, bounds, dragCallback){
     showOverlay();
+    //alert("startDrag showOverlay");
     var startX = mouseX - element.position().left;
     var startY = mouseY - element.position().top;
     if (!dragCallback) dragCallback = function(){};
@@ -295,7 +307,7 @@ function NodeGraph(){
       curr.connections[connectionIndex++] = c;
       return c;
     }
-    
+    console.log("the position of the node:"+xp+","+yp);
     canvas.append("<div class='node'/>");
     var n = $(".node").last();
     n.css({"position" : "absolute",      
@@ -354,11 +366,11 @@ function NodeGraph(){
 	n.append("<textarea class='title' spellcheck='false' />");
     var title = $(".node .title").last();
     title.css("position","absolute");
-    title.css({"width" : nodeWidth - 5,
-		     "height" : 10,
+    title.css({"width" : nodeWidth,
+		     "height" : 15,
              "resize" : "none", "overflow" : "hidden",
              "font-size" : "12px" , "font-family" : "sans-serif",
-			 "text-align":"center","line-height":"80%",
+			 "text-align":"center","line-height":"85%",
              "border" : "none","z-index":4});
           
     this.title = title; 
@@ -372,8 +384,8 @@ function NodeGraph(){
     var txt = $(".node .txt").last();
     txt.css("position","absolute");
    
-    txt.css({"width" : nodeWidth - 5,
-             "height" : nodeHeight - bar.height() - 20,
+    txt.css({"width" : nodeWidth ,
+             "height" : nodeHeight - bar.height() - 15,
 			 "left" : 0, "top" : 25,
              "resize" : "none", "overflow" : "hidden",
              "font-size" : "12px" , "font-family" : "sans-serif",
@@ -444,11 +456,13 @@ function NodeGraph(){
     }
     
     this.connectionPos = function(conn){
+      //alert("connectionPos");
       var loc = conn.position();
       var nLoc = n.position();
       var point = {};
       point.x = nLoc.left + loc.left + 5;
-      point.y = nLoc.top - topHeight + loc.top + 5;
+      //point.y = nLoc.top - topHeight + loc.top + 5;
+      point.y = nLoc.top+ loc.top + 5;
       return point;
     }
     
@@ -468,9 +482,11 @@ function NodeGraph(){
     
     
    function addLink(e){
+   	  //alert("addLink");
       currentNode = curr;
       e.preventDefault();
       showOverlay();
+      //alert("addlink showOverlay()");
       var link = paper.path("M 0 0 L 1 1");
       link.attr({"stroke-width":2});
       currentConnection = link;
@@ -480,7 +496,8 @@ function NodeGraph(){
       var loc = $(this).position();
       var nLoc = n.position();
       var x = loc.left + nLoc.left + 5;
-      var y = loc.top + nLoc.top - topHeight + 5;
+      //var y = loc.top + nLoc.top - topHeight + 5;
+      var y = loc.top + nLoc.top + 5;      
       newNode = true;
       console.log("type in addlink"+type);
       var id = setInterval(function(){
@@ -489,7 +506,8 @@ function NodeGraph(){
         //console.log("updatePath:"+updatePath);
         link.attr("path",updatePath);
         pathEnd.x = mouseX;
-        pathEnd.y = mouseY;//set the pathEnd to the current mouse's position;
+        pathEnd.y = mouseY;
+        //pathEnd.y = mouseY-topHeight;//set the pathEnd to the current mouse's position;
       }, 30);
       loops.push(id);
    }
@@ -520,8 +538,8 @@ function NodeGraph(){
         n.css({"width" : x + resizer.width() + 1,
                "height" : y + resizer.height() + 1});
         	
-	    title.css({"width" : n.width() - 5, "height" : 10,});//this title custom resizer function	
-        txt.css({"width" : n.width() - 5, "height" : n.height() - bar.height() - 20});//this line needs to be changed
+	    title.css({"width" : n.width(), "height" : 15,});//this title custom resizer function	
+        txt.css({"width" : n.width(), "height" : n.height() - bar.height() - 15});//this line needs to be changed
         
         positionLeft();
         positionRight();
@@ -546,6 +564,7 @@ function NodeGraph(){
   }
   
   function hitTest(a, b){
+  //	alert("hitTest");
     var aPos = a.position();
     var bPos = b.position();
     
@@ -591,16 +610,18 @@ function NodeGraph(){
   var defaultHeight = 55;
   
   this.addNodeAtMouse = function(){
+  	//alert("addNodeAtMouse");
     //alert("Zevan");
     var w = currentNode.width() || defaultWidth;
     var h = currentNode.height () || defaultHeight;
-    var temp = new Node(mouseX, mouseY + 30, w, h);
+    console.log("mouseX is "+mouseX+"  mouseY is "+mouseY+"  in addNodeAtMouse");
+    var temp = new Node(mouseX, mouseY , w, h);
     currentNode = temp;
     currentConnection = null;
   }
   
   function defaultNode(){
-    
+    //alert("start drawing default node");
     var temp = new Node(win.width() / 2 - defaultWidth / 2, 
                         win.height() / 2 - defaultHeight / 2,
                         defaultWidth, defaultHeight, true);

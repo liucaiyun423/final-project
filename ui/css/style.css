@@ -1,6 +1,7 @@
 /**rest css**/
-html{color:#000;background:#FFF;}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}
+
+html{color:#000;background:#FFF;font-family:Georgia, serif, sans-serif;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,p,blockquote,th,td{margin:0;padding:0;}
 table{border-collapse:collapse;border-spacing:0;}
 fieldset,img{border:0;}
 address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}
@@ -16,8 +17,6 @@ legend{color:#000;}
 input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
 input,button,textarea,select{*font-size:100%;}
 
-/*** html font***/
-html			{ font-family:Georgia, serif, sans-serif;}
 
 
 /** hightlight**/
@@ -29,7 +28,7 @@ box-shadow: 0px 1px 3px dimgrey;
 background: white; }
 
 /*znode main*/
-#main{
+.main{
   width : 100%;
   height : 40px;
   background-color : #dcdcdc;
@@ -38,6 +37,7 @@ background: white; }
   border-right : none;
   border-bottom : 1px solid #999;
 }
+
 
 .btn{ 
   padding: 17px 8px 13px 8px;
@@ -71,9 +71,23 @@ background: white; }
   -webkit-box-shadow:5px 6px 5px #888;
     
 }
+#openWin
+{
+  font-size:12px;
+  position : absolute;
+  top : 60px;
+  left : 101%;
+  width : 230px;
+  height : 460px;
+  background-color : #dcdcdc;
+  z-index : 6000;
+  display : none;
+  -webkit-box-shadow:5px 6px 5px #888;
+    
+}
 
 
-#fileList, #gVariables{
+#fileList, #gVariables , #files {
   position : relative;
   margin : 10px;
   left:5px;
@@ -191,10 +205,10 @@ form #nameForm{
 
 /*** Header ***/
 					
-#menu				{  float:right; position:absolute; top:12px; right:40px; z-index:999;}
+#menuButton				{  float:right; position:absolute; top:12px; right:40px; z-index:999;}
 
 
-#menu a				{ 
+#menuButton a				{ 
                         -webkit-border-radius:10px;
 						background: #fff;
 	                    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed))
@@ -204,7 +218,7 @@ form #nameForm{
                         text-decoration:none; 
 						}
 					
-#menu a:hover		{ 
+#menuButton a:hover		{ 
                         background:#525252;
 						-webkit-transition: background-color 0.3s ease-in; 
 						color:#FFF;
@@ -213,23 +227,23 @@ form #nameForm{
 						margin-right:10px;  
 						}
 
-#menu a.selected	{ 
+#menuButton a.selected	{ 
                         background:#525252; color:#FFF;
 						background: -webkit-gradient(linear, left top, left bottom, from(#888), to(#575757));   
 						text-decoration:none; padding:6px;
 						margin-right:10px;  
 						}
 					
-ul#menu li           { float:left;}
+ul#menuButton li           { float:left;}
 
 
 
 /*** Article Body Content ***/
-article	{ width:100%; height:100%; position:absolute; top:0; left:0; overflow:hidden; }
+#wrapper	{ width:100%; height:100%; position:absolute; top:0; left:0; overflow:hidden; }
 
-article #mask		{ width:200%; height:100%; }
+ #mask		{ width:200%; height:100%; }
 
-article .box		{ width:50%; height:100%; float:left; }
+ .box		{ width:50%; height:100%; float:left; }
 
 #filePane   { overflow:auto; position:absolute;width:100%;height:94%;}
 
@@ -255,7 +269,7 @@ article .box		{ width:50%; height:100%; float:left; }
 #overlayBox { 
 	width:400px;
     border:10px solid #666;
-    border:10px solid rgba(82, 82, 82, 0.698);
+   /* border:10px solid rgba(82, 82, 82, 0.698);*/
     -webkit-border-radius:8px;
     }
 
@@ -283,6 +297,20 @@ article .box		{ width:50%; height:100%; float:left; }
 	border:1px solid #3B5998;
 	font-size:20px;
 	}
+/** znode*/
+#canvas{
+ position:absolute;left:100%; 
+}
+#overlay{
+  position: absolute;
+  background-color:#6D84B4;
+  opacity:0.5;
+  z-index : 1000;
+  cursor: pointer;
+}
 
+textarea, input{ 
+  outline:none;
+}
 										
 										
