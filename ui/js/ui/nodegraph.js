@@ -20,7 +20,7 @@ function NodeGraph(){
  
   var paper = new Raphael("canvas", "100", "100");
 
-  var type="composition";//the type of the link,by default is inheritance.
+  var type="inheritance";//the type of the link,by default is inheritance.
   this.changeType=function changeType(linkType){
   	type=linkType;
   	console.log("linkType passed in: "+linkType+" "+"after change,type is :"+type);
@@ -309,8 +309,11 @@ function NodeGraph(){
     }
     console.log("the position of the node:"+xp+","+yp);
     canvas.append("<div class='node'/>");
-    var n = $(".node").last();
-    n.css({"position" : "absolute",      
+    var n = $(".node").last();     
+	
+	n.attr("id",nodeId);// bind the ID;
+    
+	n.css({"position" : "absolute",      
            "left" : xp, "top" : yp,
            "width" : w, "height" : h,   
            "border" : "1px solid gray",
@@ -361,6 +364,34 @@ function NodeGraph(){
         }
       });
     }
+   
+   //append function sign 'F'	
+	n.append("<div class='f'>F( )<\/div>");
+      var f = $(".node .f").last();
+      f.css({"position":"absolute","padding-right" : 2, "padding-top" : 0, "padding-left" : 2,
+              "color" : "white", "font-family" : "sans-serif",
+              "top" : -1, "right": 0, "cursor": "pointer",
+              "font-size" : "8px", "background-color" : "gray", "z-index" : 100});
+      f.hover(function(){
+        f.css("color","black");
+      }, function(){
+        f.css("color","white");
+      }).click(function(){
+	//  	alert($(this).parent().attr('id'));
+	//alert($(this).parent().find(".title").val());
+	$(".functionWin").last().remove();
+	canvas.append("<div class='functionWin'/>");
+	var functionWin = $(".functionWin").last();
+	functionWin.css({   'font-size':'12px','position' : 'absolute',
+                         'top' : '20px', 'left' :' 20px','width' : '230px',
+                         'height' : '460px',
+                         'background-color' : '#dcdcdc',
+                         'z-index' : '6000',
+                         '-webkit-box-shadow':'5px 6px 5px #888'});
+	functionWin.append("<div class='functionTitle'>"+$(this).parent().find(".title").val()+"</div>");					 
+	
+	
+		});
    
    //this is customed title textarea
 	n.append("<textarea class='title' spellcheck='false' />");
@@ -537,10 +568,10 @@ function NodeGraph(){
         var y = loc.top;
         n.css({"width" : x + resizer.width() + 1,
                "height" : y + resizer.height() + 1});
-        	
+        
 	    title.css({"width" : n.width(), "height" : 15,});//this title custom resizer function	
         txt.css({"width" : n.width(), "height" : n.height() - bar.height() - 15});//this line needs to be changed
-        
+       // sticker.css({'position':'relative', 'left':n.width()-10,});
         positionLeft();
         positionRight();
         positionTop();
@@ -612,8 +643,8 @@ function NodeGraph(){
   this.addNodeAtMouse = function(){
   	//alert("addNodeAtMouse");
     //alert("Zevan");
-    var w = currentNode.width() || defaultWidth;
-    var h = currentNode.height () || defaultHeight;
+    var w =  defaultWidth || currentNode.width();
+    var h =  defaultHeight || currentNode.height () ;
     console.log("mouseX is "+mouseX+"  mouseY is "+mouseY+"  in addNodeAtMouse");
     var temp = new Node(mouseX, mouseY , w, h);
     currentNode = temp;

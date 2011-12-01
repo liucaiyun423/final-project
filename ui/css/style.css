@@ -49,6 +49,8 @@ background: white; }
   background-color : #efefef;
 }
 
+.arrowButton {padding-top:21px;height:6px;}
+
 #logo{
   position : relative;
   float : left;
@@ -71,23 +73,9 @@ background: white; }
   -webkit-box-shadow:5px 6px 5px #888;
     
 }
-#openWin
-{
-  font-size:12px;
-  position : absolute;
-  top : 60px;
-  left : 101%;
-  width : 230px;
-  height : 460px;
-  background-color : #dcdcdc;
-  z-index : 6000;
-  display : none;
-  -webkit-box-shadow:5px 6px 5px #888;
-    
-}
 
 
-#fileList, #gVariables , #files {
+#fileList, #gVariables {
   position : relative;
   margin : 10px;
   left:5px;
@@ -106,12 +94,12 @@ background: white; }
   margin-bottom: 10px;
 }
 
-form #nameForm{
+form #nameForm, #searchForm{
   padding :0;
   margin : 0;
 }
 
-#nameForm input{
+#nameForm input, #searchForm input{
   border : 1px solid gray;
   color : gray;
   padding : 4px;
@@ -140,32 +128,6 @@ form #nameForm{
 #gVariables #x:hover{color:white;}
 #gVariables li:hover{background-color:#ccc}
 
-/* related to NodeGraph & li/ul */
-
-/*
-#files ul{
-  padding : 0;
-  margin : 0;
-  background-color : white;
-}
-
-#files li{
-
-  list-style : none;
-}
-
-#files li, a {
-  color:#000;
-  text-decoration:none;
-  margin: 0;
-  cursor : pointer;
-  background-color : white;
-  border-bottom : 1px solid #cccccc;
-  padding : 5px 10px 5px 10px;
-}
-
-#files a{  font-size : 12px;}
-*/
 
 /** G_variable submit form**/
 #gForm {

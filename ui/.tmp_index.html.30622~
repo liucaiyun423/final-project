@@ -67,7 +67,11 @@
   </li><!-- end box1 -->
 			
     <li id="box2" class="box">
-       
+            <!--  <div class="content"></div>-->
+		<div id="openWin">
+      		<div id="fileTitle">Files:</div>
+      		<div id="files"></div>
+    	</div>
     	<!--znode drawing area-->
     	<div id="overlay"></div>
     	<div id="controls" class="main">

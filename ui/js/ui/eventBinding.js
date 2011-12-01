@@ -1,5 +1,5 @@
 $(document).ready(function() {
-        
+        $('#wrapper').scrollTo($('#box1'), 300);
         var zindex = 1;
 		$('a.link').first().addClass('selected');
 	    $('a.link').click(function () { 
@@ -70,7 +70,7 @@ $(document).ready(function() {
 		});
 		
 		
-		$('#nameForm').submit(function(event) {
+		$('#searchForm').submit(function(event) {
 			event.preventDefault();
 			highLight($('#searchElement').val());
 		});//prevent default submit event to refresh the whole page;

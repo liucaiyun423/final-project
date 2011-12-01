@@ -67,19 +67,23 @@
   </li><!-- end box1 -->
 			
     <li id="box2" class="box">
-       
+            <!--  <div class="content"></div>-->
+		<div id="openWin">
+      		<div id="fileTitle">Files:</div>
+      		<div id="files"></div>
+    	</div>
     	<!--znode drawing area-->
     	<div id="overlay"></div>
     	<div id="controls" class="main">
       		<div id="logo" >View</div>
       		<div id="save" class="btn">Save</div>
-      		<!--<div id="open" class="btn">Open</div>-->
+      		<div id="open" class="btn">Open</div>
       		<div id="inheritance" class="btn arrowButton" style="background:#efefef url('images/iArrow.png') no-repeat 50% 25%;">Inheritance</div>
 	  		<div id="composition" class="btn arrowButton" style="background:#efefef url('images/cArrow.png') no-repeat 50% 25%;">Composition</div>
       		<div id="clear" class="btn">Clear All</div>
       		<div id="saveForm">
         		<form id="nameForm">
-         			Search :
+         			Name :
          		<input type="text" name="filename" id="filename" spellcheck="false" size="23"/>
         		</form>
       		</div>
