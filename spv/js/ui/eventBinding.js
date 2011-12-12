@@ -76,7 +76,7 @@ $(document).ready(function() {
 			highLight($('#searchElement').val());
 		});//prevent default submit event to refresh the whole page;
 		
-		$(' .inheritanceWin img, .compositionWin img, .functionWin img').live("click", function(event){
+		$(' .inheritanceWin img, .compositionWin img, #closeFunctionWin').live("click", function(event){
 			$(this).parent().remove();
 		}); 
 		
@@ -202,15 +202,18 @@ $(document).ready(function() {
 	$.get('php/getContent.php?fname=/MainMenu/'+className+'.js', function(data) {
 	inheritanceWin.append('<div class="sourceCode" style="height:515px;width:530px;padding:0.8em;" >'+data+'</div>');
 
+		$('.sourceCode').ready(function () {
+		$('.sourceCode').last().lionbars('dark', false, false, false);//scrollbar
 		$("#highLightList .prototypeFunction").each(function(){
-        $('.sourceCode').last().highlight($(this).text().substring(0, ($(this).text().length - 1)));
+        $('.sourceCode').highlight($(this).text().substring(0, ($(this).text().length - 1)));
         });
 	    $("#highLightList .prototypeVar").each(function(){
-        $('.sourceCode').last().highlight($(this).text());
+        $('.sourceCode').highlight($(this).text());
         });
-		$('.sourceCode').last().lionbars('dark', false, false, false);//scrollbar
+        });
 	});
 	inheritanceWin.draggable();
+	
 	
  });
  
@@ -244,11 +247,12 @@ $(document).ready(function() {
 	compositionWin.append("<div class='className' style='background-color:#db0;color:#fff;text-align:center;border-bottom: 1px solid #a80;'>"+className+"</div>");
 	$.get('php/getContent.php?fname=/MainMenu/'+className+'.js', function(data) {
 	compositionWin.append('<div class="sourceCode" style="height:515px;width:530px;padding:0.8em;" >'+data+'</div>');
-
+        $('.sourceCode').ready(function () {
 	    $("#highLightList .composition").each(function(){
         $('.sourceCode').last().highlight($(this).text());
         });
 		$('.sourceCode').last().lionbars('dark', false, false, false);//scrollbar
+		});
 	});
 	compositionWin.draggable();
   });
@@ -257,6 +261,8 @@ $(document).ready(function() {
   /**for function**/
  $(".node .f").live("click", function(){
  	$('.compositionWin, .inheritanceWin, .functionWin').remove();
+	$('.node').removeClass("nodeSelected"); 	
+	$(this).parent().addClass("nodeSelected");
  	$('#canvas').append("<div class='functionWin'/>");
 	var functionWin = $(".functionWin").last();
 	functionWin.css({ 'font-size':'12px',
@@ -268,7 +274,7 @@ $(document).ready(function() {
                       'z-index' : '6000',
                       '-webkit-box-shadow':'5px 6px 5px #888',
                        });
-	functionWin.append('<img src="images/deleteButton.png"/>');				   
+//	functionWin.append('<img src="images/deleteButton.png"/>');				   
 	var className = $.trim($(this).parent().find(".title").val());
 	functionWin.append("<div class='className' style='font-size:16px;font-style:italic;margin:10px;'>"+className+"</div>");				   
 	$.get('php/getFunction.php?classname='+className, function(data) {
@@ -284,7 +290,7 @@ $(document).ready(function() {
 		});
 		
 	functionWin.append("<textarea class='functionDetails' spellcheck='false'/>");
-	functionWin.append("<input style ='position : absolute;top : 390px;left:20px' type='submit' value='Submit' id='submitFunction'/>");
+	functionWin.append("<input style ='position : absolute;top : 390px;left:20px' type='submit' value='Save' id='submitFunction'/>");
 	functionWin.append("<input style ='position : absolute;top : 390px;right:20px' type='button' value='Close' id='closefunctionWin'/>");	
  	
  	

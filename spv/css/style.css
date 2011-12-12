@@ -328,10 +328,10 @@ ul#menu{
 -webkit-animation-duration: 800ms;             
               }
 /** znode soucecode sticker**/
-.inheritanceWin img, .compositionWin img, .functionWin img {position:absolute;display:none;}
+.inheritanceWin img, .compositionWin img{position:absolute;display:none;}
 .inheritanceWin:hover 	img {display:block;left: -10px;top: -10px;}	
 .compositionWin:hover 	img {display:block;left: -10px;top: -10px;}	
-.functionWin:hover 	img {display:block;left: -10px;top: -10px;}	
+
 
 .highLightWrapper img {position:absolute;display:none;}
 .highLightWrapper:hover img {display:block;left: -3px;top: -3px;}

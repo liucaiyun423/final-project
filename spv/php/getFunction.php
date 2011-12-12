@@ -9,6 +9,8 @@
 	 */
 	
 //given the filename fetch an array contains all the functions
+$functionName="";
+
 
 function getJsonObj($classname){
 		$detail_file="../jsonFunction/functionDetails.json";
@@ -21,8 +23,13 @@ function getJsonObj($classname){
 }
     
 function sort_functions_from_sourcecode($classname){
+$functions=new stdClass();
 		$fileName="../MainMenu/$classname.js";
- 		$lines = file($fileName);
+ 		//$lines = file($fileName);
+		if(!file_exists("$fileName"))
+  {die("Class not found! Be sure to input correct class name!");}
+else
+  {$lines = file($fileName);}
 		foreach ($lines as $line_num => $line) 
  		{ 
     		$position1 = strpos($line, 'function(');
@@ -49,6 +56,7 @@ function sort_functions_from_sourcecode($classname){
  	} 
 
 function get_functions($classname){
+$functions=new stdClass();
 		$summery=getJsonObj($classname);
 		if($summery==null){
 			sort_functions_from_sourcecode($classname);
@@ -66,7 +74,9 @@ function get_functions($classname){
 
 
  $classname=$_GET["classname"];
+ if(isset($_GET["functionName"])){
  $functionName=$_GET["functionName"];
+ }
  if($classname!=null){
  	 $functions=get_functions($classname);	
  }
@@ -75,7 +85,7 @@ function get_functions($classname){
  }
  foreach($functions as $property => $property_value)
  {	 
-	 if($functionName==null){
+	 if($functionName==""){
  	 echo "<li class='function'>$property</li>";
  }	 else {
  	if($functionName==$property){
